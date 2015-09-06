@@ -1,3 +1,6 @@
+# Street Parking Signs NYC
+A server for all street parking signs in NYC
+
 # Create Table
 
 Connect to Heroku by running this command in your project
@@ -59,3 +62,4 @@ SELECT * from signs WHERE earth_box(ll_to_earth(40.7135097, -73.9859414), 1000) 
 # References
 
 [http://johanndutoit.net/searching-in-a-radius-using-postgres/](http://johanndutoit.net/searching-in-a-radius-using-postgres/)
+
