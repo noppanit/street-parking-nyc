@@ -59,6 +59,20 @@ This will pre-calculate the degrees for each of the coordinates that will make t
 SELECT * from signs WHERE earth_box(ll_to_earth(40.7135097, -73.9859414), 1000) @> ll_to_earth(latitude, longtitude);
 ```
 
+# API Test
+
+After you've run the application by
+
+```
+python server.py
+```
+
+Then try this URL
+
+```
+http://localhost:5000/find?lat=40.7135097&lng=-73.9859414&radius=1000
+```
+
 # References
 
 [http://johanndutoit.net/searching-in-a-radius-using-postgres/](http://johanndutoit.net/searching-in-a-radius-using-postgres/)
