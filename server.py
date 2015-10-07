@@ -24,7 +24,7 @@ def find():
     for row in cursor.fetchall():
         results.append(dict(zip(columns, row)))
 
-    return json.dumps(results)
+    return json.dumps({results:results})
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
