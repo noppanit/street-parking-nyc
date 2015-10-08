@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, Response
 import psycopg2
 import json
 
@@ -24,7 +24,13 @@ def find():
     for row in cursor.fetchall():
         results.append(dict(zip(columns, row)))
 
-    return json.dumps({'results':results})
+    json_string = json.dumps({'results':results})
+
+    resp = Response(response=json_string,
+            status=200,
+            minetype="application/json")
+
+    return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
