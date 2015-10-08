@@ -28,7 +28,7 @@ def find():
 
     resp = Response(response=json_string,
             status=200,
-            minetype="application/json")
+            mimetype="application/json")
 
     return resp
 
