@@ -1,7 +1,56 @@
 # Street Parking Signs NYC
 A server for all street parking signs in NYC
 
+# What you need to develop locally?
+1. Docker
+2. Docker hub account
+3. Pull postgresql from Docker
+
+```
+docker pull postgresql
+```
+
+Run a container. This command will run `postgres` docker image and export port `5432` to the host machine.
+
+```
+docker run --name postgres -d -p 5432:5432 postgres
+```
+
+connect to postgresql via `psql` you would need to change the `ip address` to be your virtual machine address
+
+```
+psql -h 192.168.99.100 -U postgres
+```
+
+copy the CSV to postgresql
+```
+psql -h 192.168.99.100 -U postgres -c "\copy signs FROM 'Processed_Signs.csv' WITH CSV HEADER DELIMITER AS ',';"
+```
+
 # Create Table
+
+```
+CREATE TABLE SIGNS (
+	longtitude float,
+	latitude float,
+	OBJECTID integer,
+	SG_KEY_BOR varchar(10),
+	SG_ORDER_N varchar(10),
+	SG_SEQNO_N varchar(3),
+	SG_MUTCD_C varchar(10),
+	SR_DIST integer,
+	SG_SIGN_FC varchar(5),
+	SG_ARROW_D varchar(5),
+	x float,
+	y float,
+	SIGNDESC1 varchar(300),
+  FROM_TIME varchar(100),
+  TO_TIME varchar(100),
+  DAYS varchar(100)
+);
+
+```
+#What you need for Heroku
 
 Connect to Heroku by running this command in your project
 
@@ -25,7 +74,10 @@ CREATE TABLE SIGNS (
 	SG_ARROW_D varchar(5),
 	x float,
 	y float,
-	SIGNDESC1 varchar(300)
+	SIGNDESC1 varchar(300),
+  FROM_TIME varchar(100),
+  TO_TIME varchar(100),
+  DAYS varchar(100)
 );
 ```
 

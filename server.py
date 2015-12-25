@@ -19,7 +19,7 @@ def find():
     query = 'SELECT * from signs WHERE earth_box(ll_to_earth(%s, %s), %s) @> ll_to_earth(latitude, longtitude);'
 
     cursor.execute(query, (lat, lng, radius))
-    columns = ['longtitude', 'latitude', 'object_id', 'sg_key_bor', 'sg_order_n', 'sg_seqno_n', 'sg_mutcd_c', 'sr_dist', 'sg_sign_fc', 'sg_arrow_d', 'x', 'y', 'signdesc']
+    columns = ['longtitude', 'latitude', 'object_id', 'sg_key_bor', 'sg_order_n', 'sg_seqno_n', 'sg_mutcd_c', 'sr_dist', 'sg_sign_fc', 'sg_arrow_d', 'x', 'y', 'signdesc1', 'from_time', 'to_time', 'days']
     results = []
     for row in cursor.fetchall():
         results.append(dict(zip(columns, row)))
