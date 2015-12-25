@@ -4,7 +4,7 @@ A server for all street parking signs in NYC
 # What you need to develop locally?
 1. Docker
 2. Docker hub account
-3. Pull postgresql from Docker
+3. Pull [postgresql](https://hub.docker.com/_/postgres/) from Docker
 
 ```
 docker pull postgresql
