@@ -27,29 +27,6 @@ copy the CSV to postgresql
 psql -h 192.168.99.100 -U postgres -c "\copy signs FROM 'Processed_Signs.csv' WITH CSV HEADER DELIMITER AS ',';"
 ```
 
-# Create Table
-
-```
-CREATE TABLE SIGNS (
-	longtitude float,
-	latitude float,
-	OBJECTID integer,
-	SG_KEY_BOR varchar(10),
-	SG_ORDER_N varchar(10),
-	SG_SEQNO_N varchar(3),
-	SG_MUTCD_C varchar(10),
-	SR_DIST integer,
-	SG_SIGN_FC varchar(5),
-	SG_ARROW_D varchar(5),
-	x float,
-	y float,
-	SIGNDESC1 varchar(300),
-  FROM_TIME varchar(100),
-  TO_TIME varchar(100),
-  DAYS varchar(100)
-);
-
-```
 #What you need for Heroku
 
 Connect to Heroku by running this command in your project
@@ -81,7 +58,7 @@ CREATE TABLE SIGNS (
 );
 ```
 
-# Import
+# Import in Heroku
 
 ```
 heroku pg:psql --app street-parking DATABASE -c "\copy signs FROM 'Signs.csv' WITH CSV HEADER DELIMITER AS ',';"
