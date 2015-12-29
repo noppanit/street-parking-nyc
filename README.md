@@ -61,7 +61,7 @@ CREATE TABLE SIGNS (
 # Import in Heroku
 
 ```
-heroku pg:psql --app street-parking DATABASE -c "\copy signs FROM 'Signs.csv' WITH CSV HEADER DELIMITER AS ',';"
+heroku pg:psql --app street-parking DATABASE -c "\copy signs FROM 'Processed_Signs.csv' WITH CSV HEADER DELIMITER AS ',';"
 ```
 
 # Enable functions
@@ -86,7 +86,7 @@ This will pre-calculate the degrees for each of the coordinates that will make t
 
 # To Test
 
-Don't for get to use the latitude and longtitude from NYC as the data is only in NYC
+Don't forget to use the latitude and longtitude from NYC as the data is only in NYC
 
 ```
 SELECT * from signs WHERE earth_box(ll_to_earth(40.7135097, -73.9859414), 1000) @> ll_to_earth(latitude, longtitude);
