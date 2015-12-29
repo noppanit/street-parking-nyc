@@ -2,7 +2,8 @@ import os
 from flask import Flask, request, Response
 import json
 
-from street_parking.signs_finder import get_signs
+from street_parking.signs_finder import get_signs, get_grouped_signs
+
 app = Flask(__name__)
 
 @app.route('/find')
@@ -10,8 +11,13 @@ def find():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     radius = request.args.get('radius')
-
-    results = get_signs(lat, lng, radius)
+   
+    result = []
+    if 'group_signs' in request.args:
+        results = get_grouped_signs(lat, lng, radius)
+    else:
+        results = get_signs(lat, lng, radius)
+    
     json_string = json.dumps({'results':results})
 
     resp = Response(response=json_string,
