@@ -1,29 +1,17 @@
 import os
 from flask import Flask, request, Response
-import psycopg2
 import json
 
+from street_parking.signs_finder import get_signs
 app = Flask(__name__)
-
-DATABASE_URL = os.environ['DATABASE_URL']
-
-conn = psycopg2.connect(DATABASE_URL)
 
 @app.route('/find')
 def find():
     lat = request.args.get('lat')
     lng = request.args.get('lng')
     radius = request.args.get('radius')
-    cursor = conn.cursor()
-    
-    query = 'SELECT * from signs WHERE earth_box(ll_to_earth(%s, %s), %s) @> ll_to_earth(latitude, longtitude);'
 
-    cursor.execute(query, (lat, lng, radius))
-    columns = ['longtitude', 'latitude', 'object_id', 'sg_key_bor', 'sg_order_n', 'sg_seqno_n', 'sg_mutcd_c', 'sr_dist', 'sg_sign_fc', 'sg_arrow_d', 'x', 'y', 'signdesc1', 'from_time', 'to_time', 'days']
-    results = []
-    for row in cursor.fetchall():
-        results.append(dict(zip(columns, row)))
-
+    results = get_signs(lat, lng, radius)
     json_string = json.dumps({'results':results})
 
     resp = Response(response=json_string,

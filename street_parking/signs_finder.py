@@ -1,5 +1,5 @@
 import os
-
+import collections
 import psycopg2
 
 from urllib.parse import urlparse
@@ -22,10 +22,13 @@ def get_signs(lat, lng, radius):
     cursor.execute(query, (lat, lng, radius))
     columns = ['latitude', 'longtitude', 'signdesc1', 'from_time', 'to_time', 'days']
     results = []
+    d = collections.defaultdict(list)
     for row in cursor.fetchall():
         results.append(dict(zip(columns, row)))
-    
-    print(results[0])
-    return results
+   
+    for item in results:
+        d[(item['latitude'], item['longtitude'])].append(item)
+        
+    return list(d.values())
 
 
