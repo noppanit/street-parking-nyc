@@ -17,7 +17,7 @@ def find():
         results = get_grouped_signs(lat, lng, radius)
     else:
         results = get_signs(lat, lng, radius)
-    
+
     json_string = json.dumps({'results':results})
 
     resp = Response(response=json_string,

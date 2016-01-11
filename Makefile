@@ -5,3 +5,6 @@ test:
 
 server:
 	python server.py
+
+psql:
+	psql -h "$(IP)" -U postgres

@@ -2,6 +2,8 @@ import os
 import collections
 import psycopg2
 
+from dateutil.parser import parse
+
 from urllib.parse import urlparse
 
 url = urlparse(os.environ["DATABASE_URL"])
@@ -25,7 +27,29 @@ def _find_signs(lat, lng, radius):
     for row in cursor.fetchall():
         results.append(dict(zip(columns, row)))
   
-    return results
+    street_signs = []
+    for r in results:
+        days = []
+        if r['days']:        
+            days = r['days'].split(',')
+            days = list(filter(None, days))
+            days = [d.strip() for d in days]
+            
+        street_sign = {
+                'parkable': {
+                    'isParkable': None,
+                    'parkableDays': {
+                        'days': days,
+                        'from_time': r['from_time'],
+                        'to_time': r['to_time']
+                        }
+                    },
+                'description': r['signdesc1'],
+                'longtitude': r['longtitude'],
+                'latitude': r['latitude']
+                }
+        street_signs.append(street_sign)
+    return street_signs
 
 def get_grouped_signs(lat, lng, radius):
     results = _find_signs(lat, lng, radius)
